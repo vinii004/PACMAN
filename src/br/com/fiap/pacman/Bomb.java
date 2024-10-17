@@ -8,6 +8,5 @@ public class Bomb extends Item {
 
     public void explodir(Player jogador) {
         jogador.perderVida();
-
     }
 }

@@ -4,7 +4,7 @@ public class Player extends GameObject {
     private int life;
     private int direction;
     private boolean invencivel;
-    private final int screenSize = 500;
+
 
 
     public Player(int x, int y, int direction) {
