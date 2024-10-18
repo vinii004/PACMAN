@@ -1,4 +1,6 @@
-package br.com.fiap.pacman;
+package br.com.fiap.pacman.coletaveis;
+
+import br.com.fiap.pacman.Objetos.Player;
 
 public class Bomb extends Item {
 

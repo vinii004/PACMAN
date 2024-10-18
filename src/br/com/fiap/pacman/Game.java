@@ -7,6 +7,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+
+import br.com.fiap.pacman.Objetos.GameObject;
+import br.com.fiap.pacman.Objetos.Ghost;
+import br.com.fiap.pacman.Objetos.Player;
+import br.com.fiap.pacman.coletaveis.Bomb;
+import br.com.fiap.pacman.coletaveis.Booster;
+
 import javax.swing.JOptionPane;
 
 public class Game extends JFrame implements KeyListener {

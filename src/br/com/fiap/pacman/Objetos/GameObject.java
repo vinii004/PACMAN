@@ -1,4 +1,4 @@
-package br.com.fiap.pacman;
+package br.com.fiap.pacman.Objetos;
 
 public class GameObject {
     protected int x; 

@@ -1,4 +1,6 @@
-package br.com.fiap.pacman;
+package br.com.fiap.pacman.coletaveis;
+
+import br.com.fiap.pacman.Objetos.Player;
 
 public class Booster extends Item {
     private int duration;

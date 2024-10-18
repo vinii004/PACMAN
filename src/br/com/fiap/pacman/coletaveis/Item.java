@@ -1,4 +1,6 @@
-package br.com.fiap.pacman;
+package br.com.fiap.pacman.coletaveis;
+
+import br.com.fiap.pacman.Objetos.GameObject;
 
 public class Item extends GameObject {
     private boolean visible; 

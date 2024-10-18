@@ -1,4 +1,4 @@
-package br.com.fiap.pacman;
+package br.com.fiap.pacman.Objetos;
 import java.util.Random;
 
 public class Ghost extends GameObject {

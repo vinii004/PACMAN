@@ -1,4 +1,4 @@
-package br.com.fiap.pacman;
+package br.com.fiap.pacman.Objetos;
 
 public class Player extends GameObject {
     private int life;
