@@ -36,4 +36,7 @@ public class GameObject {
     public boolean colideCom(GameObject outro) {
         return this.x == outro.x && this.y == outro.y;
     }
+/*no caso da bomba for coletada ela some*/
+    public void setFoiColetado(boolean b) {
+    }
 }

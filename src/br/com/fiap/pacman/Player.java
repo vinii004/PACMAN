@@ -5,8 +5,6 @@ public class Player extends GameObject {
     private int direction;
     private boolean invencivel;
 
-
-
     public Player(int x, int y, int direction) {
         super(x, y);
         this.direction = direction;
@@ -14,11 +12,9 @@ public class Player extends GameObject {
         this.invencivel = false;
     }
 
-
     public void setDirection(int direction) {
         this.direction = direction;
     }
-
 
     public int getLife() {
         return life;
@@ -27,7 +23,6 @@ public class Player extends GameObject {
     public void setLife(int vidas) {
         this.life = vidas;
     }
-
 
     public void perderVida() {
         if (!invencivel) {
@@ -67,8 +62,6 @@ public class Player extends GameObject {
                 break;
         }
     }
-
-
 
     public boolean isInvencivel() {
         return invencivel;

@@ -3,11 +3,11 @@ package br.com.fiap.pacman;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+import javax.swing.JOptionPane;
 
 public class Game extends JFrame implements KeyListener {
 
@@ -28,9 +28,9 @@ public class Game extends JFrame implements KeyListener {
 	private JLabel imgBomb = new JLabel(new ImageIcon("src/images/bomb.png"));
 	private JLabel imgBooster = new JLabel(new ImageIcon("src/images/booster.png"));
 
-	private final int SCREENSIZE = 600;
-	private int speed = 50;
-	
+	private final int SCREENSIZE = 600; // Tamanho da tela
+	private int speed = 50; // Velocidade do jogo
+
 	public static void main(String[] args) {
 		new Game().init();
 	}
@@ -38,13 +38,13 @@ public class Game extends JFrame implements KeyListener {
 	private void init() {
 		setLayout(null);
 		player.setScreenSize(SCREENSIZE);
-		player.setLife(15);
+		player.setLife(10);
 
 		ghost1.setScreenSize(SCREENSIZE);
 		ghost2.setScreenSize(SCREENSIZE);
 		ghost3.setScreenSize(SCREENSIZE);
 		ghost4.setScreenSize(SCREENSIZE);
-		
+
 		add(imgPlayer);
 		add(imgGhost1);
 		add(imgGhost2);
@@ -64,7 +64,6 @@ public class Game extends JFrame implements KeyListener {
 	}
 
 	private void render() {
-		
 		updateLocation(imgPlayer, player);
 		updateLocation(imgGhost1, ghost1);
 		updateLocation(imgGhost2, ghost2);
@@ -74,21 +73,21 @@ public class Game extends JFrame implements KeyListener {
 		updateLocation(imgBooster, booster);
 		setTitle("Life: " + player.getLife());
 		SwingUtilities.updateComponentTreeUI(this);
-
 	}
 
 	private void updateLocation(JLabel label, GameObject object) {
 		label.setBounds(object.getX(), object.getY(), 50, 50);
 		ImageIcon myImage = (ImageIcon) label.getIcon();
-        Image img = myImage.getImage();
-        Image newImg = img.getScaledInstance(label.getWidth(), label.getHeight(),Image.SCALE_SMOOTH);
-        label.setIcon( new ImageIcon(newImg) );
+		Image img = myImage.getImage();
+		Image newImg = img.getScaledInstance(label.getWidth(), label.getHeight(),Image.SCALE_SMOOTH);
+		label.setIcon( new ImageIcon(newImg) );
 	}
+
+	private int bombsCollected = 0;  /*esse conta a bomba q foi coletadas*/
+
 	private void run() {
 		while (player.getLife() > 0) {
 			player.move();
-
-
 			ghost1.moveRandomly();
 			ghost2.moveRandomly();
 			ghost3.moveRandomly();
@@ -96,31 +95,52 @@ public class Game extends JFrame implements KeyListener {
 
 
 			if (player.colideCom(ghost1) || player.colideCom(ghost2) || player.colideCom(ghost3) || player.colideCom(ghost4)) {
-
 				if (!player.isInvencivel()) {
 					player.perderVida();
 				}
 			}
-
-
-			if (player.colideCom(bomb) && !bomb.foiColetado()) {
+//é a linha de qnd colidir com a bomb
+			if (bomb != null && bomb.isVisible() && player.colideCom(bomb) && !bomb.foiColetado()) {
 				bomb.explodir(player);
 				bomb.coletar();
+				bombsCollected++;
+				bomb.setVisible(false);
+
+				if (bombsCollected == 1) {imgBomb.setVisible(false);
+				}
 			}
 
+			imgBomb.setVisible(bomb.isVisible());
 
-			if (player.colideCom(booster) && !booster.foiColetado()) {
+			if (booster != null && booster.isVisible() && player.colideCom(booster) && !booster.foiColetado()) {
 				booster.aplicarEfeito(player);
-				booster.coletar();
+				booster.coletar(); /* Isso daq serve para Atualizar o estado de coleta tanto booster quanto a bomba*/
 			}
-
 
 			if (player.isInvencivel()) {
 				booster.reduzirDuracao();
-				if (!booster.isEfeitoAtivo()) {
+				if (booster.isEfeitoAtivo()) {
 					player.setInvencivel(false);
+					booster.setVisible(false);
 				}
 			}
+
+			if (booster.isVisible()) {
+				imgBooster.setVisible(true);
+			} else {
+				imgBooster.setVisible(false);
+			}
+		if (player.isInvencivel()) {
+			booster.reduzirDuracao();
+			if (booster.isEfeitoAtivo()) {
+				player.setInvencivel(false);
+				booster.setVisible(false);
+			}
+		}
+		if (booster.isVisible()) {
+
+			imgBooster.setVisible(true);
+		}
 
 			render();
 
@@ -130,17 +150,17 @@ public class Game extends JFrame implements KeyListener {
 				e.printStackTrace();
 			}
 		}
+		JOptionPane.showMessageDialog(null, "Game Over noob", "Fim do Jogo", JOptionPane.INFORMATION_MESSAGE);
 	}
-
 
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		char c = e.getKeyChar();
-		if (c == '8' || c == 'w') player.setDirection(0);	
-		if (c == '6' || c == 'd') player.setDirection(90);	
-		if (c == '2' || c == 's') player.setDirection(180);	
-		if (c == '4' || c == 'a') player.setDirection(270);	
+		if (c == '8' || c == 'w') player.setDirection(0);
+		if (c == '6' || c == 'd') player.setDirection(90);
+		if (c == '2' || c == 's') player.setDirection(180);
+		if (c == '4' || c == 'a') player.setDirection(270);
 	}
 
 	@Override
@@ -148,7 +168,4 @@ public class Game extends JFrame implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {}
-	
-
-	
 }

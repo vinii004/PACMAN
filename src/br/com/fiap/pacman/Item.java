@@ -3,7 +3,6 @@ package br.com.fiap.pacman;
 public class Item extends GameObject {
     private boolean visible; 
 
-
     public Item(int x, int y) {
         super(x, y);
         this.visible = true;
@@ -13,16 +12,13 @@ public class Item extends GameObject {
         return visible;
     }
 
- 
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
 
-
     public void coletar() {
         this.visible = false;
     }
-
 
     public boolean foiColetado() {
         return !this.visible;

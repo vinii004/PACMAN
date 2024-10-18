@@ -1,7 +1,7 @@
 package br.com.fiap.pacman;
 
 public class Booster extends Item {
-    private int duration; 
+    private int duration;
 
 
     public Booster(int x, int y, int duration) {
@@ -13,7 +13,6 @@ public class Booster extends Item {
     public int getDuration() {
         return duration;
     }
-
 
     public void aplicarEfeito(Player jogador) {
         jogador.setInvencivel(true);
@@ -28,8 +27,7 @@ public class Booster extends Item {
         }
     }
 
-
     public boolean isEfeitoAtivo() {
-        return duration > 0;
+        return duration <= 0;
     }
 }
